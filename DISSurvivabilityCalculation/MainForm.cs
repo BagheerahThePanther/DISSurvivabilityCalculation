@@ -96,6 +96,8 @@ namespace DISSurvivabilityCalculation
                 comboBoxConnFrom.Items.Add(unit.Name);
                 comboBoxConnTo.Items.Add(unit.Name);
             }
+            comboBoxConnFrom.SelectedItem = comboBoxConnFrom.Items.Count > 0 ? comboBoxConnFrom.Items[0] : null;
+            comboBoxConnTo.SelectedItem = comboBoxConnTo.Items.Count > 0 ? comboBoxConnTo.Items[0] : null;
         }
 
 
@@ -121,10 +123,10 @@ namespace DISSurvivabilityCalculation
         private void refreshConnectionsTable()
         {
             dataGridViewConnections.Rows.Clear();
-            var sequence = units.Where(unit => unit.Type == Type.Connection).Select(unit => new { DeviceName = unit.Name, ConnectionSurvivability = unit.Survivability });
+            var sequence = units.Where(unit => unit.Type == Type.Connection);
             foreach (var element in sequence)
             {
-                dataGridViewConnections.Rows.Add(new object[] { element.DeviceName, element.ConnectionSurvivability});
+                dataGridViewConnections.Rows.Add(new object[] { element.Name, element.Device1.Name, element.Device2.Name, element.Survivability});
             }
         }
 
@@ -137,6 +139,18 @@ namespace DISSurvivabilityCalculation
                     foreach (DataGridViewRow row in dataGridViewNetworkDevs.SelectedRows)
                     {
                         units.Remove(new Unit(Type.NetworkDevice, (string)row.Cells["DeviceName"].Value, (double)row.Cells["NetworkDeviceSurvivability"].Value));
+                        List<Unit> removingUnit = units.FindAll(unit => unit.Type == Type.Connection && (unit.Device1.Name == (string)row.Cells["DeviceName"].Value || unit.Device2.Name == (string)row.Cells["DeviceName"].Value));
+                        foreach(Unit u in removingUnit)
+                        {
+                            units.Remove(u);
+                            foreach (DataGridViewRow r in dataGridViewConnections.Rows)
+                            {
+                                if ((string)r.Cells["ConnectionName"].Value == u.Name)
+                                {
+                                    dataGridViewConnections.Rows.RemoveAt(r.Index);
+                                }
+                            }
+                        }
                         dataGridViewNetworkDevs.Rows.RemoveAt(row.Index);
                         refreshComboboxes();
                     }
@@ -145,6 +159,18 @@ namespace DISSurvivabilityCalculation
                     foreach (DataGridViewRow row in dataGridViewHostDevs.SelectedRows)
                     {
                         units.Remove(new Unit(Type.HostDevice, (string)row.Cells["HostName"].Value, (double)row.Cells["HostSurvivability"].Value));
+                        List<Unit> removingUnit = units.FindAll(unit => unit.Type == Type.Connection && (unit.Device1.Name == (string)row.Cells["HostName"].Value || unit.Device2.Name == (string)row.Cells["HostName"].Value));
+                        foreach (Unit u in removingUnit)
+                        {
+                            units.Remove(u);
+                            foreach (DataGridViewRow r in dataGridViewConnections.Rows)
+                            {
+                                if ((string)r.Cells["ConnectionName"].Value == u.Name)
+                                {
+                                    dataGridViewConnections.Rows.RemoveAt(r.Index);
+                                }
+                            }
+                        }
                         dataGridViewHostDevs.Rows.RemoveAt(row.Index);
                         refreshComboboxes();
                     }

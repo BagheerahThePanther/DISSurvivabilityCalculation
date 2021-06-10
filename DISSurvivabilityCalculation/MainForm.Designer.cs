@@ -68,12 +68,17 @@ namespace DISSurvivabilityCalculation
             this.HostName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.HostSurvivability = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewConnections = new System.Windows.Forms.DataGridView();
-            this.ConnectionName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ConnectionSurvivability = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridView3 = new System.Windows.Forms.DataGridView();
             this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.textBoxResult = new System.Windows.Forms.TextBox();
+            this.buttonCalculate = new System.Windows.Forms.Button();
+            this.textBoxProgressLog = new System.Windows.Forms.TextBox();
+            this.ConnectionName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Device1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Device2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ConnectionSurvivability = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerMain)).BeginInit();
             this.splitContainerMain.Panel1.SuspendLayout();
             this.splitContainerMain.Panel2.SuspendLayout();
@@ -85,6 +90,7 @@ namespace DISSurvivabilityCalculation
             this.groupBoxNetworkDevices.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownNetworkDevsSurvivability)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerSecond)).BeginInit();
+            this.splitContainerSecond.Panel1.SuspendLayout();
             this.splitContainerSecond.Panel2.SuspendLayout();
             this.splitContainerSecond.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerThird)).BeginInit();
@@ -119,7 +125,7 @@ namespace DISSurvivabilityCalculation
             // splitContainerMain.Panel2
             // 
             this.splitContainerMain.Panel2.Controls.Add(this.splitContainerSecond);
-            this.splitContainerMain.Size = new System.Drawing.Size(954, 529);
+            this.splitContainerMain.Size = new System.Drawing.Size(1133, 529);
             this.splitContainerMain.SplitterDistance = 332;
             this.splitContainerMain.TabIndex = 0;
             // 
@@ -410,10 +416,16 @@ namespace DISSurvivabilityCalculation
             this.splitContainerSecond.Name = "splitContainerSecond";
             this.splitContainerSecond.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
+            // splitContainerSecond.Panel1
+            // 
+            this.splitContainerSecond.Panel1.Controls.Add(this.textBoxProgressLog);
+            this.splitContainerSecond.Panel1.Controls.Add(this.buttonCalculate);
+            this.splitContainerSecond.Panel1.Controls.Add(this.textBoxResult);
+            // 
             // splitContainerSecond.Panel2
             // 
             this.splitContainerSecond.Panel2.Controls.Add(this.splitContainerThird);
-            this.splitContainerSecond.Size = new System.Drawing.Size(618, 529);
+            this.splitContainerSecond.Size = new System.Drawing.Size(797, 529);
             this.splitContainerSecond.SplitterDistance = 290;
             this.splitContainerSecond.TabIndex = 0;
             // 
@@ -431,7 +443,7 @@ namespace DISSurvivabilityCalculation
             // splitContainerThird.Panel2
             // 
             this.splitContainerThird.Panel2.Controls.Add(this.splitContainerFourth);
-            this.splitContainerThird.Size = new System.Drawing.Size(618, 235);
+            this.splitContainerThird.Size = new System.Drawing.Size(797, 235);
             this.splitContainerThird.SplitterDistance = 203;
             this.splitContainerThird.TabIndex = 0;
             // 
@@ -498,7 +510,7 @@ namespace DISSurvivabilityCalculation
             // splitContainerFourth.Panel2
             // 
             this.splitContainerFourth.Panel2.Controls.Add(this.dataGridViewConnections);
-            this.splitContainerFourth.Size = new System.Drawing.Size(411, 235);
+            this.splitContainerFourth.Size = new System.Drawing.Size(590, 235);
             this.splitContainerFourth.SplitterDistance = 203;
             this.splitContainerFourth.TabIndex = 0;
             // 
@@ -542,6 +554,8 @@ namespace DISSurvivabilityCalculation
             this.dataGridViewConnections.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewConnections.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.ConnectionName,
+            this.Device1,
+            this.Device2,
             this.ConnectionSurvivability});
             this.dataGridViewConnections.ContextMenuStrip = this.contextMenuStripDGV;
             this.dataGridViewConnections.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -549,24 +563,8 @@ namespace DISSurvivabilityCalculation
             this.dataGridViewConnections.Name = "dataGridViewConnections";
             this.dataGridViewConnections.ReadOnly = true;
             this.dataGridViewConnections.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewConnections.Size = new System.Drawing.Size(204, 235);
+            this.dataGridViewConnections.Size = new System.Drawing.Size(383, 235);
             this.dataGridViewConnections.TabIndex = 2;
-            // 
-            // ConnectionName
-            // 
-            this.ConnectionName.HeaderText = "Наименование соединения";
-            this.ConnectionName.Name = "ConnectionName";
-            this.ConnectionName.ReadOnly = true;
-            this.ConnectionName.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.ConnectionName.Width = 90;
-            // 
-            // ConnectionSurvivability
-            // 
-            this.ConnectionSurvivability.HeaderText = "Живучесть";
-            this.ConnectionSurvivability.Name = "ConnectionSurvivability";
-            this.ConnectionSurvivability.ReadOnly = true;
-            this.ConnectionSurvivability.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.ConnectionSurvivability.Width = 70;
             // 
             // dataGridView3
             // 
@@ -606,11 +604,67 @@ namespace DISSurvivabilityCalculation
             this.dataGridViewTextBoxColumn6.ReadOnly = true;
             this.dataGridViewTextBoxColumn6.Width = 20;
             // 
+            // textBoxResult
+            // 
+            this.textBoxResult.Location = new System.Drawing.Point(3, 266);
+            this.textBoxResult.Name = "textBoxResult";
+            this.textBoxResult.Size = new System.Drawing.Size(407, 20);
+            this.textBoxResult.TabIndex = 0;
+            // 
+            // buttonCalculate
+            // 
+            this.buttonCalculate.Location = new System.Drawing.Point(414, 264);
+            this.buttonCalculate.Name = "buttonCalculate";
+            this.buttonCalculate.Size = new System.Drawing.Size(199, 23);
+            this.buttonCalculate.TabIndex = 1;
+            this.buttonCalculate.Text = "Вычислить живучесть системы";
+            this.buttonCalculate.UseVisualStyleBackColor = true;
+            // 
+            // textBoxProgressLog
+            // 
+            this.textBoxProgressLog.Location = new System.Drawing.Point(3, 12);
+            this.textBoxProgressLog.Multiline = true;
+            this.textBoxProgressLog.Name = "textBoxProgressLog";
+            this.textBoxProgressLog.Size = new System.Drawing.Size(603, 248);
+            this.textBoxProgressLog.TabIndex = 2;
+            // 
+            // ConnectionName
+            // 
+            this.ConnectionName.HeaderText = "Наименование соединения";
+            this.ConnectionName.Name = "ConnectionName";
+            this.ConnectionName.ReadOnly = true;
+            this.ConnectionName.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.ConnectionName.Width = 90;
+            // 
+            // Device1
+            // 
+            this.Device1.HeaderText = "От";
+            this.Device1.Name = "Device1";
+            this.Device1.ReadOnly = true;
+            this.Device1.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.Device1.Width = 90;
+            // 
+            // Device2
+            // 
+            this.Device2.HeaderText = "До";
+            this.Device2.Name = "Device2";
+            this.Device2.ReadOnly = true;
+            this.Device2.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.Device2.Width = 90;
+            // 
+            // ConnectionSurvivability
+            // 
+            this.ConnectionSurvivability.HeaderText = "Живучесть";
+            this.ConnectionSurvivability.Name = "ConnectionSurvivability";
+            this.ConnectionSurvivability.ReadOnly = true;
+            this.ConnectionSurvivability.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.ConnectionSurvivability.Width = 70;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(954, 529);
+            this.ClientSize = new System.Drawing.Size(1133, 529);
             this.Controls.Add(this.splitContainerMain);
             this.Name = "MainForm";
             this.Text = "Оценка живучести РИС";
@@ -629,6 +683,8 @@ namespace DISSurvivabilityCalculation
             this.groupBoxNetworkDevices.ResumeLayout(false);
             this.groupBoxNetworkDevices.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownNetworkDevsSurvivability)).EndInit();
+            this.splitContainerSecond.Panel1.ResumeLayout(false);
+            this.splitContainerSecond.Panel1.PerformLayout();
             this.splitContainerSecond.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerSecond)).EndInit();
             this.splitContainerSecond.ResumeLayout(false);
@@ -693,7 +749,12 @@ namespace DISSurvivabilityCalculation
         private System.Windows.Forms.DataGridViewTextBoxColumn NetworkDeviceSurvivability;
         private System.Windows.Forms.DataGridViewTextBoxColumn HostName;
         private System.Windows.Forms.DataGridViewTextBoxColumn HostSurvivability;
+        private System.Windows.Forms.TextBox textBoxProgressLog;
+        private System.Windows.Forms.Button buttonCalculate;
+        private System.Windows.Forms.TextBox textBoxResult;
         private System.Windows.Forms.DataGridViewTextBoxColumn ConnectionName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Device1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Device2;
         private System.Windows.Forms.DataGridViewTextBoxColumn ConnectionSurvivability;
     }
 }
