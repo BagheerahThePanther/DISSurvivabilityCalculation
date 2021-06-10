@@ -57,24 +57,26 @@ namespace DISSurvivabilityCalculation
             this.numericUpDownNetworkDevsSurvivability = new System.Windows.Forms.NumericUpDown();
             this.textBoxNetworkDeviceName = new System.Windows.Forms.TextBox();
             this.splitContainerSecond = new System.Windows.Forms.SplitContainer();
+            this.textBoxProgressLog = new System.Windows.Forms.TextBox();
+            this.buttonCalculate = new System.Windows.Forms.Button();
+            this.textBoxResult = new System.Windows.Forms.TextBox();
             this.splitContainerThird = new System.Windows.Forms.SplitContainer();
             this.dataGridViewNetworkDevs = new System.Windows.Forms.DataGridView();
-            this.DeviceName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.NetworkDeviceSurvivability = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.contextMenuStripDGV = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItemDeleteRow = new System.Windows.Forms.ToolStripMenuItem();
             this.splitContainerFourth = new System.Windows.Forms.SplitContainer();
             this.dataGridViewHostDevs = new System.Windows.Forms.DataGridView();
-            this.HostName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.HostSurvivability = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewConnections = new System.Windows.Forms.DataGridView();
             this.dataGridView3 = new System.Windows.Forms.DataGridView();
             this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.textBoxResult = new System.Windows.Forms.TextBox();
-            this.buttonCalculate = new System.Windows.Forms.Button();
-            this.textBoxProgressLog = new System.Windows.Forms.TextBox();
+            this.buttonClearAll = new System.Windows.Forms.Button();
+            this.buttonClearLog = new System.Windows.Forms.Button();
+            this.DeviceName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.NetworkDeviceSurvivability = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.HostName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.HostSurvivability = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ConnectionName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Device1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Device2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -418,6 +420,8 @@ namespace DISSurvivabilityCalculation
             // 
             // splitContainerSecond.Panel1
             // 
+            this.splitContainerSecond.Panel1.Controls.Add(this.buttonClearLog);
+            this.splitContainerSecond.Panel1.Controls.Add(this.buttonClearAll);
             this.splitContainerSecond.Panel1.Controls.Add(this.textBoxProgressLog);
             this.splitContainerSecond.Panel1.Controls.Add(this.buttonCalculate);
             this.splitContainerSecond.Panel1.Controls.Add(this.textBoxResult);
@@ -428,6 +432,31 @@ namespace DISSurvivabilityCalculation
             this.splitContainerSecond.Size = new System.Drawing.Size(797, 529);
             this.splitContainerSecond.SplitterDistance = 290;
             this.splitContainerSecond.TabIndex = 0;
+            // 
+            // textBoxProgressLog
+            // 
+            this.textBoxProgressLog.Location = new System.Drawing.Point(3, 12);
+            this.textBoxProgressLog.Multiline = true;
+            this.textBoxProgressLog.Name = "textBoxProgressLog";
+            this.textBoxProgressLog.Size = new System.Drawing.Size(782, 248);
+            this.textBoxProgressLog.TabIndex = 2;
+            // 
+            // buttonCalculate
+            // 
+            this.buttonCalculate.Location = new System.Drawing.Point(414, 264);
+            this.buttonCalculate.Name = "buttonCalculate";
+            this.buttonCalculate.Size = new System.Drawing.Size(179, 23);
+            this.buttonCalculate.TabIndex = 1;
+            this.buttonCalculate.Text = "Вычислить живучесть системы";
+            this.buttonCalculate.UseVisualStyleBackColor = true;
+            this.buttonCalculate.Click += new System.EventHandler(this.buttonCalculate_Click);
+            // 
+            // textBoxResult
+            // 
+            this.textBoxResult.Location = new System.Drawing.Point(3, 266);
+            this.textBoxResult.Name = "textBoxResult";
+            this.textBoxResult.Size = new System.Drawing.Size(407, 20);
+            this.textBoxResult.TabIndex = 0;
             // 
             // splitContainerThird
             // 
@@ -464,22 +493,6 @@ namespace DISSurvivabilityCalculation
             this.dataGridViewNetworkDevs.Size = new System.Drawing.Size(203, 235);
             this.dataGridViewNetworkDevs.TabIndex = 0;
             this.dataGridViewNetworkDevs.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
-            // 
-            // DeviceName
-            // 
-            this.DeviceName.HeaderText = "Наименование устройства";
-            this.DeviceName.Name = "DeviceName";
-            this.DeviceName.ReadOnly = true;
-            this.DeviceName.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.DeviceName.Width = 90;
-            // 
-            // NetworkDeviceSurvivability
-            // 
-            this.NetworkDeviceSurvivability.HeaderText = "Живучесть";
-            this.NetworkDeviceSurvivability.Name = "NetworkDeviceSurvivability";
-            this.NetworkDeviceSurvivability.ReadOnly = true;
-            this.NetworkDeviceSurvivability.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.NetworkDeviceSurvivability.Width = 70;
             // 
             // contextMenuStripDGV
             // 
@@ -530,22 +543,6 @@ namespace DISSurvivabilityCalculation
             this.dataGridViewHostDevs.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridViewHostDevs.Size = new System.Drawing.Size(203, 235);
             this.dataGridViewHostDevs.TabIndex = 1;
-            // 
-            // HostName
-            // 
-            this.HostName.HeaderText = "Наименование устройства";
-            this.HostName.Name = "HostName";
-            this.HostName.ReadOnly = true;
-            this.HostName.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.HostName.Width = 90;
-            // 
-            // HostSurvivability
-            // 
-            this.HostSurvivability.HeaderText = "Живучесть";
-            this.HostSurvivability.Name = "HostSurvivability";
-            this.HostSurvivability.ReadOnly = true;
-            this.HostSurvivability.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.HostSurvivability.Width = 70;
             // 
             // dataGridViewConnections
             // 
@@ -604,36 +601,60 @@ namespace DISSurvivabilityCalculation
             this.dataGridViewTextBoxColumn6.ReadOnly = true;
             this.dataGridViewTextBoxColumn6.Width = 20;
             // 
-            // textBoxResult
+            // buttonClearAll
             // 
-            this.textBoxResult.Location = new System.Drawing.Point(3, 266);
-            this.textBoxResult.Name = "textBoxResult";
-            this.textBoxResult.Size = new System.Drawing.Size(407, 20);
-            this.textBoxResult.TabIndex = 0;
+            this.buttonClearAll.Location = new System.Drawing.Point(694, 264);
+            this.buttonClearAll.Name = "buttonClearAll";
+            this.buttonClearAll.Size = new System.Drawing.Size(91, 23);
+            this.buttonClearAll.TabIndex = 3;
+            this.buttonClearAll.Text = "Очистить все";
+            this.buttonClearAll.UseVisualStyleBackColor = true;
             // 
-            // buttonCalculate
+            // buttonClearLog
             // 
-            this.buttonCalculate.Location = new System.Drawing.Point(414, 264);
-            this.buttonCalculate.Name = "buttonCalculate";
-            this.buttonCalculate.Size = new System.Drawing.Size(199, 23);
-            this.buttonCalculate.TabIndex = 1;
-            this.buttonCalculate.Text = "Вычислить живучесть системы";
-            this.buttonCalculate.UseVisualStyleBackColor = true;
+            this.buttonClearLog.Location = new System.Drawing.Point(599, 264);
+            this.buttonClearLog.Name = "buttonClearLog";
+            this.buttonClearLog.Size = new System.Drawing.Size(89, 23);
+            this.buttonClearLog.TabIndex = 4;
+            this.buttonClearLog.Text = "Очистить лог";
+            this.buttonClearLog.UseVisualStyleBackColor = true;
+            this.buttonClearLog.Click += new System.EventHandler(this.buttonClearLog_Click);
             // 
-            // textBoxProgressLog
+            // DeviceName
             // 
-            this.textBoxProgressLog.Location = new System.Drawing.Point(3, 12);
-            this.textBoxProgressLog.Multiline = true;
-            this.textBoxProgressLog.Name = "textBoxProgressLog";
-            this.textBoxProgressLog.Size = new System.Drawing.Size(603, 248);
-            this.textBoxProgressLog.TabIndex = 2;
+            this.DeviceName.HeaderText = "Наименование устройства";
+            this.DeviceName.Name = "DeviceName";
+            this.DeviceName.ReadOnly = true;
+            this.DeviceName.Width = 90;
+            // 
+            // NetworkDeviceSurvivability
+            // 
+            this.NetworkDeviceSurvivability.HeaderText = "Живучесть";
+            this.NetworkDeviceSurvivability.Name = "NetworkDeviceSurvivability";
+            this.NetworkDeviceSurvivability.ReadOnly = true;
+            this.NetworkDeviceSurvivability.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.NetworkDeviceSurvivability.Width = 70;
+            // 
+            // HostName
+            // 
+            this.HostName.HeaderText = "Наименование устройства";
+            this.HostName.Name = "HostName";
+            this.HostName.ReadOnly = true;
+            this.HostName.Width = 90;
+            // 
+            // HostSurvivability
+            // 
+            this.HostSurvivability.HeaderText = "Живучесть";
+            this.HostSurvivability.Name = "HostSurvivability";
+            this.HostSurvivability.ReadOnly = true;
+            this.HostSurvivability.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.HostSurvivability.Width = 70;
             // 
             // ConnectionName
             // 
             this.ConnectionName.HeaderText = "Наименование соединения";
             this.ConnectionName.Name = "ConnectionName";
             this.ConnectionName.ReadOnly = true;
-            this.ConnectionName.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.ConnectionName.Width = 90;
             // 
             // Device1
@@ -641,7 +662,6 @@ namespace DISSurvivabilityCalculation
             this.Device1.HeaderText = "От";
             this.Device1.Name = "Device1";
             this.Device1.ReadOnly = true;
-            this.Device1.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.Device1.Width = 90;
             // 
             // Device2
@@ -649,7 +669,6 @@ namespace DISSurvivabilityCalculation
             this.Device2.HeaderText = "До";
             this.Device2.Name = "Device2";
             this.Device2.ReadOnly = true;
-            this.Device2.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.Device2.Width = 90;
             // 
             // ConnectionSurvivability
@@ -745,13 +764,15 @@ namespace DISSurvivabilityCalculation
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn6;
         private System.Windows.Forms.ContextMenuStrip contextMenuStripDGV;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemDeleteRow;
+        private System.Windows.Forms.TextBox textBoxProgressLog;
+        private System.Windows.Forms.Button buttonCalculate;
+        private System.Windows.Forms.TextBox textBoxResult;
+        private System.Windows.Forms.Button buttonClearLog;
+        private System.Windows.Forms.Button buttonClearAll;
         private System.Windows.Forms.DataGridViewTextBoxColumn DeviceName;
         private System.Windows.Forms.DataGridViewTextBoxColumn NetworkDeviceSurvivability;
         private System.Windows.Forms.DataGridViewTextBoxColumn HostName;
         private System.Windows.Forms.DataGridViewTextBoxColumn HostSurvivability;
-        private System.Windows.Forms.TextBox textBoxProgressLog;
-        private System.Windows.Forms.Button buttonCalculate;
-        private System.Windows.Forms.TextBox textBoxResult;
         private System.Windows.Forms.DataGridViewTextBoxColumn ConnectionName;
         private System.Windows.Forms.DataGridViewTextBoxColumn Device1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Device2;

@@ -18,13 +18,13 @@ namespace DISSurvivabilityCalculation
     {
         internal Type Type { get => type;}
         public string Name { get => name;}
-        public double Survivability => survivability;
+        public double Survivability { get => survivability; set => survivability = value; }
         internal Unit Device1 { get => device1; }
         internal Unit Device2 { get => device2; }
 
         private readonly Unit device1;
         private readonly Unit device2;
-        private readonly double survivability;
+        private double survivability;
         private readonly string name;
         private readonly Type type;
 
